@@ -79,7 +79,7 @@ public:
         {
             std::cerr << "TestSensitivityAnalysis::Please input an argument\n"
                          "* --file  the path of an experimental design file\n"
-            			 "* --tag  tag for identifying output (optional)<n"
+            			 "* --tag  tag for identifying output (optional)\n"
                          "* --store-data  record voltage and calcium transients (optional)\n";
             return;
         }
