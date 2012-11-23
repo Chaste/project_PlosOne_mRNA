@@ -1,4 +1,4 @@
-This file explains useage of the Chaste bolt-on user project HumanHeartFailuremRNA
+This file explains useage of the Chaste bolt-on user project PlosOne_mRNA
 
 This file is divided into four parts
 
@@ -14,7 +14,7 @@ This file is divided into four parts
 1. Archive contents
 
 The Chaste bolt-on project you have downloaded should either be copied into the 'projects' folder of your Chaste folder or ideally given a symbolic link to the Chaste projects folder. Thus the directory structure should read
-Chaste/projects/HumanHeartFailuremRNA/test (etc).
+Chaste/projects/PlosOne_mRNA/test (etc).
 
 The Chaste project contains five folders:
 
@@ -70,12 +70,12 @@ surf_30 and surf_3060: used for generating the surfaces in the supplement
 
 So, to run and tag all your output with test, load an example failing heart experiment (containing 25 experiments) and store the resulting final APs, do:
 
-scons ts=projects/PlosOne_mRNA/test/TestSensitivityAnalysisOHaraEndo.hpp run_time_flags="--file projects/PlosOne_mRNA/test/data/input_uniform_3060/exp_design_uniform_30_1.dat --tag test --store-data"
+scons ts=projects/PlosOne_mRNA/test/TestSensitivityAnalysisOHaraEndo.hpp run_time_flags="--file projects/PlosOne_mRNA/test/data/input_uniform_3060/exp_design_uniform_3060_1.dat --tag test --store-data"
 
-Alternatively, we may use the compile argument build_only=1 (or bo=1) to compile but not run Chaste, then once this is done we can run the executable with flags as normal. This will be useful when using supercomputers (see 4):
+Alternatively, we may use the compile argument compile_only=1 (or co=1) to compile but not run Chaste, then once this is done we can run the executable with flags as normal. This will be useful when using supercomputers (see 4):
 
-scons bo=1 ts=projects/PlosOne_mRNA/test/TestSensitivityAnalysisOHaraEndo.hpp
-projects/PlosOne_mRNA/build/debug/TestSensitivityAnalysisOHaraEndoRunner --file projects/PlosOne_mRNA/test/data/... --tag test --store-data
+scons co=1 ts=projects/PlosOne_mRNA/test/TestSensitivityAnalysisOHaraEndo.hpp
+projects/PlosOne_mRNA/build/debug/TestSensitivityAnalysisOHaraEndoRunner --file projects/PlosOne_mRNA/test/data/input_uniform_3060/exp_design_uniform_30_1.dat --tag test --store-data
 
 Other useful arguments for scons:
 cl=1 (compile chaste as libraries)
