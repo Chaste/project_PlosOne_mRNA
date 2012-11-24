@@ -16,7 +16,7 @@ This file is divided into four parts
 The Chaste bolt-on project you have downloaded should either be copied into the 'projects' folder of your Chaste folder or ideally given a symbolic link to the Chaste projects folder. Thus the directory structure should read
 Chaste/projects/PlosOne_mRNA/test (etc).
 
-The Chaste project contains five folders:
+The Chaste project contains six folders:
 
 test: Contains the C++ file TestSensitivityAnalysisOHaraEndo.hpp and the folder data, containing the experimental designs run in the paper.
 
@@ -25,6 +25,8 @@ src: Contains SensitivityDataStructure.cpp, SensitivityDataStructure.hpp, and oh
 build: Currently empty. Once you compile TestSensitivityAnalysisOHaraEndo.hpp, binaries will go here.
 
 matlab: Contains code used to analyse and plot the biomarkers in the study. Not used by Chaste.
+
+output: Contains results obtained from our experiments.
 
 pbs: Batch submission scripts used to simulate the model population on the Oxford Supercomputing Centre's machines.
 
@@ -122,22 +124,38 @@ More information on PBS can be found at http://www.osc.ox.ac.uk/content/pbs
 
 4. Matlab files
 
-These files are not officially supported by the Chaste team - queries may be sent to John Walmsley at johnwalmsley@gmail.com. If you wish to re-use this code, please either add John Walmsley as an acknowledgement and/or cite our mRNA expression paper in PLOS ONE, Walmsley et al 2013 as appropriate. We use the freely available matlab program export_fig to generate our figures as it offers vastly improved "what you see is what you get" over standard Matlab http://www.mathworks.co.uk/matlabcentral/fileexchange/23629-exportfig.
+All matlab files were written by John Walmsley, Gary Mirams and Jose-Felix Rodriguez.
+
+These files are not supported by the Chaste team - queries may be sent to John Walmsley at johnwalmsley@gmail.com. If you wish to re-use this code, please either add John Walmsley as an acknowledgement and/or cite our mRNA expression paper in PLOS ONE, Walmsley et al 2013 as appropriate. We use the freely available matlab program export_fig to generate our figures as it offers vastly improved "what you see is what you get" over standard Matlab http://www.mathworks.co.uk/matlabcentral/fileexchange/23629-exportfig.
 
 You will need to change the directories used in all these files to get them to work on your machine. Once the directories have been changed as appropriate (you may want to copy them out of your Chaste folder), the figures used in our paper should be generated.
 
+The output of the files we obtained in our experiments can be found in the output folder. uniform_30 is the results for the non-failing populaiton, uniform_3060 is the results for the fialing population, and surface_30 and surface_60 are the results used to construct the parameter surfaces in the supplement.
+
+You will need to change the directories at the head of the file so that they are appropriate for your machine.
+
 Files:
 
+exp_des_uniform.m 
+Used to generate experimental designs using a uniform distribution.
+
+exp_des_surface.m
+Used to generate experimental designs for the parameter surface in the supplement.
+
 post_proc.m 
-This file performs post-processing of the biomarkers (detecting alternans, dividing through APD30 by APD80 to get APD3080, etc). You will need to change the directories at the head of the file so that they are appropriate for your machine.
+This file performs post-processing of the biomarkers (detecting alternans, dividing through APD30 by APD80 to get APD3080, etc). 
 
-Histograms_Chaste.m
-To get the baseline and 60s files needed by the analysis program, you'll need to generate these files by running the Chaste executable in section 2 on the file test/data/BaselineAndExtremeCase.dat. You'll then need to rename the output appropriately! Using a sensible tag for your output is recommended to avoid overwriting other data.
+statistics_Chaste.m
+Generates the histograms seen in Fig. 3 as well as generating summary statistics from the distributions. To get the baseline and 60s files needed by the analysis program, you'll need to generate these files by running the Chaste executable in section 2 on the file test/data/BaselineAndExtremeCase.dat. You'll then need to rename the output appropriately! Using a sensible tag for your output is recommended to avoid overwriting other data.
 
+statistics_correlations_Chaste.m
+Generates the correlation plots in Fig. 4. Requires JW_plotmatrix_triangle.m, an overwritten form of the matlab plotmatrix command.
 
+regressionanalysis.m
+Performs linear regression analysis on the data provided, to generate the plots in Fig. 5. Also postprocesses the alternans data.
 
-
-
+ParameterSurface.m 
+Generates the parameter surface figures in the supplement.
  
 
 
