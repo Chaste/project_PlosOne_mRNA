@@ -18,7 +18,7 @@ Chaste/projects/PlosOne_mRNA/test (etc).
 
 The Chaste project contains six folders:
 
-test: Contains the C++ file TestSensitivityAnalysisOHaraEndo.hpp and the folder data, containing the experimental designs run in the paper.
+test: Contains the C++ file TestSensitivityAnalysisOHaraEndoLiteratePaper.hpp and the folder data, containing the experimental designs run in the paper.
 
 src: Contains SensitivityDataStructure.cpp, SensitivityDataStructure.hpp, and ohara_rudy_2011.cellml
 
@@ -38,11 +38,11 @@ This project is known to work with Chaste release 3.1. Note that you must have C
 
 To use the Chaste code, it is recommended you familiarise yourself with how Chaste works on the Chaste wiki.
 
-The file to be compiled, TestSensitivityAnalysisOHaraEndo.hpp, may be compiled from your Chaste folder as follows:
+The file to be compiled, TestSensitivityAnalysisOHaraEndoLiteratePaper.hpp, may be compiled from your Chaste folder as follows:
 
 cd Chaste
 
-scons ts=projects/PlosOne_mRNA/test/TestSensitivityAnalysisOHaraEndo.hpp
+scons ts=projects/PlosOne_mRNA/test/TestSensitivityAnalysisOHaraEndoLiteratePaper.hpp
 
 scons will then compile and run the resulting executable. This will result in a request for the following arguments:
 # 0 arguments supplied.
