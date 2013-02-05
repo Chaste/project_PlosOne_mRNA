@@ -33,6 +33,11 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
+#ifdef CHASTE_CVODE
+
+#ifndef _TESTSENSITIVITYANALYSISOHARAENDO_HPP_
+#define _TESTSENSITIVITYANALYSISOHARAENDO_HPP_
+
 /*
  * = PLOS ONE mRNA population study =
  *
@@ -61,13 +66,8 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * == Code overview ==
  *
- * The code only runs if Chaste is set up to use Cvode!
+ * The code only runs if Chaste is set up to use Cvode, hence the #ifdef CHASTE_CVODE line at the top of the file (not shown on wiki, see downloadable project).
  */
-
-#ifdef CHASTE_CVODE
-
-#ifndef _TESTSENSITIVITYANALYSISOHARAENDO_HPP_
-#define _TESTSENSITIVITYANALYSISOHARAENDO_HPP_
 
 /*
  * Define the header files
@@ -110,6 +110,10 @@ public:
      */
     void TestSensitivityOHaraEndo(void) throw (Exception)
     {
+    	/*
+    	 * Simulates a population of models.
+    	 */
+
     	/*
     	 * Read in the command line arguments supplied to the executable
     	 */
