@@ -67,6 +67,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * == Code overview ==
  *
  * The code only runs if Chaste is set up to use Cvode, hence the #ifdef CHASTE_CVODE line at the top of the file (not shown on wiki, see downloadable project).
+ *
  */
 
 /*
@@ -123,7 +124,9 @@ public:
         unsigned argc = *(p_args->p_argc); // has the number of arguments.
         std::cout << "# " << argc-1 << " arguments supplied.\n" << std::flush;
 
-        // If no file is set then we display an error explaining valid options
+        /*
+         * If no file is set then we display an error explaining valid options
+         */
 
         if ( !CommandLineArguments::Instance()->OptionExists("--file"))
         {
@@ -195,7 +198,9 @@ public:
         const double default_g_to = p_model->GetParameter("membrane_transient_outward_current_conductance");
         const double default_g_naca = p_model->GetParameter("membrane_sodium_calcium_exchanger_current_conductance");
 
-        // Increase the max number of steps Cvode can take.
+        /*
+         * Increase the max number of steps Cvode can take.
+         */
         p_model->SetMaxSteps(1e8);
 
         /*
@@ -204,16 +209,33 @@ public:
         boost::shared_ptr<RegularStimulus> p_default_stimulus =
                              boost::static_pointer_cast<RegularStimulus>(p_model->GetStimulusFunction());
 
-        double s1_period = 1500; // This is overwritten later when we enter the stimulation protocol
-        double s_magnitude = p_default_stimulus->GetMagnitude(); // Get the stimulus magnitude from the model
-        double s_duration = p_default_stimulus->GetDuration(); // Get the stimulus duration from the model
-        double s_start = 0;  // Time at which the stimulus is applied.
-        // Set the printing time step
-        double printing_time_step = 1.0; // ms
-        double maximum_time_step; // ms
-
-        // PARAMETERS FOR THE STEADY STATE EXPERIMENTS
         /*
+         * Note: s1_period is overwritten later when we enter the stimulation protocol
+         */
+        double s1_period = 1500;
+        /*
+         * Get the stimulus magnitude from the cellml-derived model
+         */
+        double s_magnitude = p_default_stimulus->GetMagnitude();
+        /*
+         * Get the stimulus duration from the model
+         */
+        double s_duration = p_default_stimulus->GetDuration();
+        /*
+         * Time at which the stimulus is applied.
+         */
+        double s_start = 0;
+        /*
+         * Set the printing time step (ms)
+         */
+        double printing_time_step = 1.0;
+        /*
+         * Initialise the maximum time step (set later)
+         */
+        double maximum_time_step;
+
+
+        /* PARAMETERS FOR THE STEADY STATE EXPERIMENTS
          * This is a regular stimulus for steady-state pacing experiments
          */
         boost::shared_ptr<RegularStimulus> p_regular_stimulus(new RegularStimulus(s_magnitude, s_duration, s1_period, s_start));
@@ -243,7 +265,9 @@ public:
          */
         SensitivityDataStructure scale_factor_data(exp_des_path.GetAbsolutePath());
 
-        // Create a vector of the pacing cycle lengths we're interested in.
+        /*
+         * Create a vector of the pacing cycle lengths we're interested in.
+         */
         std::vector<double> pacing_cycle_lengths = boost::assign::list_of(1500)(1000)(900)(800)(700)(600)(500)(450)(400)(350)(300);
 
         /**
@@ -261,7 +285,8 @@ public:
         for(unsigned experiment_idx = 0; experiment_idx < scale_factor_data.GetNumExperiments(); experiment_idx++)
         {
         	/*
-        	 * Get the index for the current experiment in the overall experimental design and create the output file with this index as its name.
+        	 * Get the index for the current experiment in the overall experimental design and create the output
+        	 * file name with this index in its name.
         	 */
         	unsigned current_experiment = scale_factor_data.GetExperimentNumber(experiment_idx);
 
@@ -283,7 +308,7 @@ public:
             p_model->SetStateVariables(p_model->GetInitialConditions());
 
             /*
-             * Set up the parameters for this experiment.
+             * Initialise the parameters for this experiment.
              */
             double gNa_factor = 1;
             double gCaL_factor  = 1;
@@ -297,7 +322,9 @@ public:
             /*
              * Parameters are extracted from the SensitivityDataStructure. There is a map between numbers and variable names contained within the function GetScaleFactor
              * in SensitivityDataStructure.cpp. If the parameter is in the file in question then its value is extracted, otherwise not. Note that the parameter names are
-             * from the OxMetaData standard used to mark up cellml files.
+             * from the OxMetaData standard used to mark up cellml files. Note that this 'SensitivityDataStructure' is different to the one presented in the
+             * 'SimpleSensitivity' project. If you are looking to do your own analysis, we recommend using the SimpleSensitivty format rather than the one presented here
+             * as it more neatly supports parallelisation
              */
 
             if (scale_factor_data.IsParameterInFile("membrane_fast_sodium_current_conductance"))
@@ -333,7 +360,9 @@ public:
                 gNaCa_factor = scale_factor_data.GetScaleFactor(experiment_idx,"membrane_sodium_calcium_exchanger_current_conductance");
             }
 
-
+            /*
+             * Print the scaling factors to screen
+             */
             std::cout << "gNa factor = " << gNa_factor << "\n" << std::flush;
             std::cout << "gCaL factor = " << gCaL_factor << "\n" << std::flush;
             std::cout << "gKr factor = " << gKr_factor << "\n" << std::flush;
@@ -391,7 +420,7 @@ public:
                 prevents resetting of variables when solve is called next.*/
                 p_model->SetAutoReset(false);
 
-                /* Initialise vectosrs for biomarkers */
+                /* Initialise vectors for biomarkers */
                 std::vector<double> apd80_vector;
                 std::vector<double> apd30_vector;
                 std::vector<double> caitd80_vector;
@@ -547,7 +576,7 @@ public:
 
             /* End loop over pacing frequencies */
             }
-            /* Close the buiomearker results file*/
+            /* Close the biomarker results file*/
             biomarker_results_file->close();
             /* End the loop over the experiment*/
         }
